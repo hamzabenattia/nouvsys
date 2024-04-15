@@ -9,4 +9,11 @@ import './bootstrap';
 
 import 'flowbite/dist/flowbite.turbo.js';
 
+import 'animate.css';
+
+
+document.addEventListener('turbo:submit-start', (event) => {
+    event.detail.formSubmission.submitter.toggleAttribute('disabled', true);
+})
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

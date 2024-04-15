@@ -32,6 +32,8 @@ Encore
     .enablePostCssLoader()
 
     .enableStimulusBridge('./assets/controllers.json')
+    .enableVersioning(Encore.isProduction())
+
 
 
 
