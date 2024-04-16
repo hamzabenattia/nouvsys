@@ -37,7 +37,7 @@ class ContactController extends AbstractController
             ];
 
             $this->emailSender->sendEmail($data['email'],
-            'houcine.z@sonaso.fr',  
+            'hamzabenattiayt2@gmail.com',  
             'Nouveau message de contact Nouvsys',
             'emails/contact.html.twig',
             $context); 
