@@ -15,12 +15,12 @@
 	</div>
 {% endfor %}
 			<div class="space-y-4 mt-8">
-				<input type="text" placeholder="Nom complet" name="contact_form[nom]" class="px-2 py-3 bg-white w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
-				<input type="tel" placeholder="Numéro de téléphone" name="contact_form[numero]" class="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
+				<input type="text" required minlength="3" placeholder="Nom complet" name="contact_form[nom]" class="px-2 py-3 bg-white w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
+				<input type="tel" required placeholder="Numéro de téléphone" name="contact_form[numero]" class="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
 
-				<input type="email" placeholder="Addresse email" name="contact_form[email]" class="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
+				<input type="email" required placeholder="Addresse email" name="contact_form[email]" class="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"/>
 
-				<textarea placeholder="Message" name="contact_form[message]" class="px-2 pt-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"></textarea>
+				<textarea required placeholder="Message" name="contact_form[message]" class="px-2 pt-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#333] outline-none"></textarea>
 			</div>
 
 			<button type="submit" class="mt-8 flex items-center justify-center text-sm w-full rounded px-4 py-2.5 font-semibold bg-[#18629C] text-white hover:bg-blue-900">
