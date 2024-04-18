@@ -21,7 +21,18 @@ class ContactController extends AbstractController
 
 
 
-    #[Route('/contact', name: 'app_contact' , methods: ['POST'])]
+    #[Route('/contact', name: 'app_contact' , methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->render('contact/index.html.twig', [
+        ]);
+    }
+
+
+
+
+
+    #[Route('/submit', name: 'contact_submit' , methods: ['POST'])]
     public function contact(Request $request): Response
     {
         $form = $this->createForm(ContactFormType::class);
@@ -46,9 +57,6 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('app_home');
                     
         }
-
-        return $this->render('about/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+       
     }
 }
