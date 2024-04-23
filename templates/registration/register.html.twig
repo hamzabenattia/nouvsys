@@ -14,21 +14,54 @@
 					</p>
 					<form class="mt-8" name="registration_form" method="post">
                         
-                        
-                        {{form_errors(registrationForm.email)}}
-                        {{form_errors(registrationForm.plainPassword)}}
+
+						<div class="flex gap-2">
+						<div class="relative mt-2 w-full">
+							<input required type="text" id="firstName" name="registration_form[firstName]" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
+							<label for="firstName" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-primary">
+								Prénom 
+							</label>
+							<p class="text-red-500">
+								{{form_errors(registrationForm.firstName)}}
+							</p>
+						</div>
 
 						<div class="relative mt-2 w-full">
-							<input type="email" name="registration_form[email]" id="email" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
+							<input required type="text" name="registration_form[lastName]" id="lastName" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
+							<label for="lastName" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-primary">
+								Nom 
+							</label>
+							{{form_errors(registrationForm.lastName)}}
+
+						</div>
+					</div>
+
+						<div class="relative mt-2 w-full">
+							<input required type="email" name="registration_form[email]" id="email" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
 							<label for="email" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-primary">
 								Email 
 							</label>
+							{{form_errors(registrationForm.email)}}
+
 						</div>
+
+						<div class="relative mt-2 w-full">
+							<input required type="tel" name="registration_form[phoneNumber]" id="phoneNumber" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
+							<label for="phoneNumber" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-primary">
+								Numeros de téléphone 
+							</label>
+							{{form_errors(registrationForm.email)}}
+	
+						</div>
+	
+
 						<div class="relative mt-2 w-full">
 							<input name="registration_form[plainPassword]" required="required" autocomplete="new-password" type="password" id="password" class="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-0" placeholder=" "/>
 							<label for="password" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-primary">
 								Mot de passe
                             </label>
+							{{form_errors(registrationForm.plainPassword)}}
+
 						</div>
 
                         <div class="mt-2 w-full">

@@ -22,6 +22,8 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+
+        $this->addFlash('success', 'Bienvenue sur votre espace sécurisé');
     }
 
     #[Route(path: '/logout', name: 'app_logout')]

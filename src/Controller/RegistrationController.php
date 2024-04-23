@@ -30,6 +30,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -52,7 +53,7 @@ class RegistrationController extends AbstractController
             );
 
             // do anything else you need here, like send an email
-            $this->addFlash('success', 'Your account has been created. Please check your email for a verification link.');
+            $this->addFlash('success', 'Votre compte a été créé. Veuillez vérifier votre courrier électronique pour un lien de vérification.');
 
             return $this->redirectToRoute('app_home');
         }

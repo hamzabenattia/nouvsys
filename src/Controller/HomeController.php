@@ -25,19 +25,10 @@ class HomeController extends AbstractController
         return $this->render('about/index.html.twig');
     }
 
+    #[Route('/nous-competences', name: 'app_skills')]
+    public function skills(): Response
+    {
+        return $this->render('skills/index.html.twig');
+    }
 
-    // #[Route('/contact', name: 'app_contact' , methods: ['POST'])]
-    // public function contact(Request $request): Response
-    // {
-    //     $form = $this->createForm(ContactFormType::class);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         dd($form->getData());
-    //     }
-
-    //     return $this->render('about/index.html.twig', [
-    //         'controller_name' => 'HomeController',
-    //     ]);
-    // }
 }
