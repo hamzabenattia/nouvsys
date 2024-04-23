@@ -1,33 +1,85 @@
-
-
-<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="{{path('app_home')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="{{asset('/images/logo.png')}}" class="h-8" alt="Nouvsys Logo" />
-    </a>
-    <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+      <img src="{{asset('/images/logo.png')}}" class="h-8" alt="Nouvsys Logo" />
+  </a>  <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+      <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+     
+        <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z" clip-rule="evenodd"/>
+        </svg>
+        
+        
+        Mon Espace
+      </button>
+      <!-- Dropdown -->
+      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
+        <ul class="py-2 font-medium" role="none">
+          {% if app.user %}
+          
+          <li>
+            <a href="{{path('app_logout')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <div class="inline-flex items-center">
+                <svg class="h-5 w-5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 91.839 122.88" enable-background="new 0 0 91.839 122.88" xml:space="preserve"><g>
+                  <path d="M81.75,64.617H41.365c-1.738,0-3.147-1.423-3.147-3.178c0-1.756,1.409-3.179,3.147-3.179h40.383L68.559,43.155 c-1.146-1.31-1.025-3.311,0.271-4.469c1.297-1.159,3.278-1.037,4.425,0.273l17.798,20.383c1.065,1.216,1.037,3.029-0.011,4.21 L73.254,83.92c-1.146,1.311-3.128,1.433-4.425,0.273c-1.296-1.158-1.417-3.16-0.271-4.47L81.75,64.617L81.75,64.617z M70.841,99.629c0-1.756,1.423-3.179,3.178-3.179c1.756,0,3.179,1.423,3.179,3.179v14.242c0,2.475-1.017,4.729-2.648,6.36 c-1.633,1.632-3.887,2.648-6.36,2.648H9.009c-2.475,0-4.73-1.014-6.363-2.646C1.016,118.603,0,116.352,0,113.871V9.009 c0-2.48,1.013-4.733,2.644-6.365C4.275,1.013,6.528,0,9.009,0h59.18c2.479,0,4.731,1.016,6.362,2.646 c1.633,1.633,2.646,3.889,2.646,6.363V23.25c0,1.755-1.423,3.178-3.179,3.178c-1.755,0-3.178-1.423-3.178-3.178V9.009 c0-0.722-0.301-1.385-0.785-1.869c-0.482-0.482-1.144-0.783-1.867-0.783H9.009c-0.726,0-1.389,0.3-1.87,0.782 C6.656,7.62,6.357,8.283,6.357,9.009v104.862c0,0.724,0.301,1.385,0.783,1.867c0.484,0.484,1.147,0.785,1.869,0.785h59.18 c0.72,0,1.381-0.302,1.865-0.786c0.485-0.484,0.787-1.146,0.787-1.866V99.629L70.841,99.629z"/></g>
+                </svg>
+                Se déconnecter
+              </div>
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{{path('app_login')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <div class="inline-flex items-center">
+                <svg class="h-5 w-5 rounded-full me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+                </svg>
+                Se connecter
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="{{path('app_register')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <div class="inline-flex items-center">
+                <svg class="h-5 w-5 rounded-full me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                </svg>
+                
+                S'inscrire
+              </div>
+            </a>
+          </li>
+          
+          {% endif %}
+          
+         
+        </ul>
+      </div>
+      <button data-collapse-toggle="navbar-language" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-language" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
-    <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
-          <a href="{{path('app_home')}}" class="block py-2 px-3  rounded hover:bg-gray-100 hover:underline md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_home' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Acceuil</a>
-        </li>
-        <li>
-          <a href="{{path('app_about')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_about' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Qui sommes-nous ?</a>
-        </li>
-        
-        <li>
-          <a href="{{path('app_about')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_about' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Nous Compétences</a>
-        
-        </li>
-        <li>
-          <a href="{{path('app_contact')}}"  class=" {% if app.request.attributes.get('_route') == 'app_contact' %}text-[#18629C] {% else %} text-gray-900 {% endif %} hover:underline block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-        </li>
-      </ul>
-    </div>
+  </div>
+  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-language">
+    <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+      <li>
+        <a href="{{path('app_home')}}" class="block py-2 px-3  rounded hover:bg-gray-100 hover:underline md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_home' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Acceuil</a>
+      </li>
+      <li>
+        <a href="{{path('app_about')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_about' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Qui sommes-nous ?</a>
+      </li>
+      
+      <li>
+        <a href="{{path('app_about')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_about' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Nous Compétences</a>
+      
+      </li>
+      <li>
+        <a href="{{path('app_contact')}}"  class=" {% if app.request.attributes.get('_route') == 'app_contact' %}text-[#18629C] {% else %} text-gray-900 {% endif %} hover:underline block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+      </li>
+    </ul>
+  </div>
   </div>
 </nav>
+
