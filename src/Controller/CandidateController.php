@@ -24,7 +24,7 @@ class CandidateController extends AbstractController
 
 
 
-    #[Route('/joindre-nous', name: 'app_candidate')]
+    #[Route('/joindre-nos', name: 'app_candidate')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
         $candidate = new Candidate();

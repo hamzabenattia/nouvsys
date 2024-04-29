@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Candidate;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -60,11 +62,6 @@ class CandidateFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir votre numéro de téléphone',
                     ]),
-                    new Length([
-                        'min' => 10,
-                        'minMessage' => 'Votre numéro de téléphone doit contenir au moins {{ limit }} caractères',
-                        'max' => 255,
-                    ]),
                 ],
             ])
             ->add('cvFile',VichFileType::class,[
@@ -89,6 +86,15 @@ class CandidateFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'label' => 'J\'accepte les termes et conditions ',
+'constraints' => [
+    new IsTrue([
+        'message' => 'Vous devez accepter nos conditions.',
+    ]),
+],
+])
             ->add('submit',SubmitType::class,[
                 'label' => 'Envoyer',
                 'attr' => [

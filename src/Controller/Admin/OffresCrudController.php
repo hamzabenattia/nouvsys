@@ -6,9 +6,11 @@ use App\Entity\Offres;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Validator\Constraints\Date;
 
 class OffresCrudController extends AbstractCrudController
 {
@@ -53,6 +55,7 @@ class OffresCrudController extends AbstractCrudController
                 'Rennes' => 'Rennes',
                 'Autre' => 'Autre',
             ]),
+            DateField::new('createdAt')->setLabel('Date de création')->hideOnForm(),
 
             
         ];
