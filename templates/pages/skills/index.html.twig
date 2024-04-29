@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvsys - Qui sommes nous{% endblock %}
+
+{% block body %}
+
+
+<div class="mt-20 mx-8">
+
+    <nav class="flex mb-4" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
+        <li class="inline-flex items-center">
+          <a href="{{path('app_home')}}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-[#18629C] dark:text-gray-400 dark:hover:text-white">
+            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+            </svg>
+            Accueil
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <a href="{{path('app_skills')}}" class="ms-1 text-sm font-medium text-gray-700 hover:text-[#18629C] md:ms-2 dark:text-gray-400 dark:hover:text-white">Nous Compétences</a>
+          </div>
+        </li>
+       
+      </ol>
+    </nav>
+
+  
+      
+      <div class="container mx-auto py-8">
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Compétence 1 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Conseils en informatique</h2>
+                <p>Nous offrons des conseils experts pour aider les entreprises à optimiser leurs systèmes informatiques et à atteindre leurs objectifs commerciaux.</p>
+            </li>
+
+            <!-- Compétence 2 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Services de développement de logiciels</h2>
+                <p>Notre équipe de développeurs talentueux peut créer des solutions logicielles personnalisées pour répondre aux besoins spécifiques de votre entreprise.</p>
+            </li>
+
+            <!-- Compétence 3 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Gestion de projet</h2>
+                <p>Nous avons une expertise avérée dans la gestion efficace de projets informatiques, assurant ainsi une livraison en temps voulu et dans les limites du budget.</p>
+            </li>
+
+            <!-- Compétence 4 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Services de maintenance et de soutien</h2>
+                <p>Nous proposons des contrats de maintenance flexibles pour garantir le bon fonctionnement continu de vos systèmes informatiques et fournir un support technique rapide en cas de besoin.</p>
+            </li>
+
+            <!-- Compétence 5 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Sécurité informatique</h2>
+                <p>La protection de vos données et de votre infrastructure est notre priorité. Nous offrons des services de sécurité informatique complets pour protéger votre entreprise contre les cybermenaces.</p>
+            </li>
+
+            <!-- Compétence 6 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Intégration de systèmes</h2>
+                <p>Nous pouvons intégrer efficacement différents systèmes informatiques pour assurer une communication transparente et une efficacité accrue au sein de votre organisation.</p>
+            </li>
+
+            <!-- Compétence 7 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Formation et accompagnement</h2>
+                <p>Nous proposons des programmes de formation personnalisés pour aider vos employés à tirer le meilleur parti de vos systèmes informatiques et à maximiser leur productivité.</p>
+            </li>
+
+            <!-- Compétence 8 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Analyse des données</h2>
+                <p>Nous utilisons des techniques avancées d'analyse des données pour extraire des informations précieuses à partir de vos données, vous aidant ainsi à prendre des décisions éclairées.</p>
+            </li>
+
+            <!-- Compétence 9 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Cloud computing</h2>
+                <p>Nous pouvons vous aider à migrer vers le cloud et à tirer parti des avantages qu'il offre en termes de flexibilité, de scalabilité et de réduction des coûts.</p>
+            </li>
+
+            <!-- Compétence 10 -->
+            <li class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Conception et développement de sites web</h2>
+                <p>En plus de nos services informatiques, nous proposons également des services de conception et de développement de sites web pour aider votre entreprise à avoir une présence en ligne efficace et attrayante.</p>
+            </li>
+        </ul>
+    </div>
+
+    </div>
+
+      
+  
+  
+
+{% endblock %}

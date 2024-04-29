@@ -74,9 +74,27 @@
         <a href="{{path('app_skills')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_skills' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Nous Compétences</a>
       
       </li>
+      <li aria-labelledby="dropdownNavbarLink">
+        <button id="doubleDropdownButton" data-dropdown-toggle="doubleDropdown" data-dropdown-placement="right-start" type="button" class="text-gray-900 flex items-center  hover:underline  py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Carriére<svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+</svg></button>
+        <div id="doubleDropdown" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
+              <li>
+                <a href="{{path('app_candidate')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Joindre nous</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nous Offres</a>
+              </li>
+            </ul>
+        </div>
+      </li>
+
       <li>
         <a href="{{path('app_contact')}}"  class=" {% if app.request.attributes.get('_route') == 'app_contact' %}text-[#18629C] {% else %} text-gray-900 {% endif %} hover:underline block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
       </li>
+
+     
     </ul>
   </div>
   </div>

@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
                     ->from(new Address('notreplay@nouvsys.fr', 'Nouvsys'))
                     ->to($user->getEmail())
                     ->subject('Veuillez confirmer votre email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('pages/registration/confirmation_email.html.twig')
             );
 
             // do anything else you need here, like send an email
@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('pages/registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }

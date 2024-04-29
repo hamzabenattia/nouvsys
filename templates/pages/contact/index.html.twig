@@ -143,7 +143,7 @@
             <div
                class="relative p-8 bg-white rounded-lg shadow-lg dark:bg-dark-2 sm:p-12"
                >
-               <form method="post" action="{{path('contact_submit')}}">
+               <form method="post">
                   <div class="mb-6">
                      <input
                         type="text"
@@ -151,6 +151,9 @@
                         name="contact_form[nom]"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
+                  </div>
+                  <div class="text-red-500 text-sm">
+                     {{ form_errors(contactForm.nom) }}
                   </div>
                   <div class="mb-6">
                      <input
@@ -160,6 +163,9 @@
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
                   </div>
+                  <div class="text-red-500 text-sm">
+                     {{ form_errors(contactForm.email) }}
+                  </div>
                   <div class="mb-6">
                      <input
                         type="tel"
@@ -167,6 +173,9 @@
                         placeholder="Votre Numéro de Téléphone"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
+                  </div>
+                  <div class="text-red-500 text-sm">
+                     {{ form_errors(contactForm.numero) }}
                   </div>
                   <div class="mb-6">
                      <textarea
@@ -176,7 +185,12 @@
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none"
                         ></textarea>
                   </div>
+                  <div class="text-red-500 text-sm">
+                     {{ form_errors(contactForm.message) }}
+                  </div>
                   <div>
+                     <input type="hidden" id="contact_form__token" name="contact_form[_token]" value="{{ csrf_token('contact_form') }}"/>
+
                      <button
                         type="submit"
                         class="w-full p-3 text-white transition border rounded border-primary bg-primary hover:bg-opacity-90"
@@ -184,6 +198,7 @@
                      Soumettre
                      </button>
                   </div>
+
                </form>
                <div>
                   <span class="absolute -top-10 -right-9 z-[-1]">

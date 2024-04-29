@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Candidate;
 use App\Entity\Offres;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Locale;
@@ -40,33 +41,17 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-        // the name visible to end users
         ->setTitle('Nouvsys')
-        // you can include HTML contents too (e.g. to link to an image)
-        // ->setTitle('<img src="..."> ACME <span class="text-small">Corp.</span>')
-
-        // by default EasyAdmin displays a black square as its default favicon;
-        // use this method to display a custom favicon: the given path is passed
-        // "as is" to the Twig asset() function:
-        // <link rel="shortcut icon" href="{{ asset('...') }}">
+  
         ->setFaviconPath("images/favicon.png")
 
 
 
 
 
-        // by default, all backend URLs are generated as absolute URLs. If you
-        // need to generate relative URLs instead, call this method
         ->generateRelativeUrls()
 
-        // set this option if you want to enable locale switching in dashboard.
-        // IMPORTANT: this feature won't work unless you add the {_locale}
-        // parameter in the admin dashboard URL (e.g. '/admin/{_locale}').
-        // the name of each locale will be rendered in that locale
-        // (in the following example you'll see: "English", "Polski")
-        // to customize the labels of locales, pass a key => value array
-        // (e.g. to display flags; although it's not a recommended practice,
-        // because many languages/locales are not associated to a single country)
+     
         ->setLocales([
             'fr' => '🇫🇷 Français',
             'en' => '🇬🇧 English'
@@ -78,9 +63,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToUrl('Back to the website', 'fas fa-home', '/');
-        yield MenuItem::linkToCrud('Offres', 'fas fa-user', Offres::class);
-        
+        yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class);
+        yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-clipboard-list', Candidate::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }

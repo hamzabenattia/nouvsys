@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig",
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
-    "./node_modules/flowbite/**/*.js" // set up the path to the flowbite package
+    "./node_modules/flowbite/**/*.js",
+    "./vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig"
+    // set up the path to the flowbite package
   ],
   theme: {
     colors: {
@@ -12,6 +15,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('flowbite/plugin') // add the flowbite plugin
+    require('flowbite/plugin','@tailwindcss/forms') // add the flowbite plugin
   ],
 }

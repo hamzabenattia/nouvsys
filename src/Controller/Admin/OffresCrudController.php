@@ -39,9 +39,7 @@ class OffresCrudController extends AbstractCrudController
                 'Freelance' => 'Freelance',
                 'Stage' => 'Stage',
                 'Alternance' => 'Alternance',
-                
-                'Autre' => 'Autre',
-            ]),
+                'Autre' => 'Autre']),
             ChoiceField::new('location')->setChoices([
                 'Paris' => 'Paris',
                 'Lyon' => 'Lyon',

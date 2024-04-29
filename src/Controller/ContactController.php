@@ -21,34 +21,34 @@ class ContactController extends AbstractController
 
 
 
-    #[Route('/contact', name: 'app_contact' , methods: ['GET'])]
+    #[Route('/contact', name: 'app_contact' , methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
-        // $form = $this->createForm(ContactFormType::class);
-        // $form->handleRequest($request);
+        $form = $this->createForm(ContactFormType::class);
+        $form->handleRequest($request);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $data = $form->getData();
-        //     $context = [
-        //         'nom' => $data['nom'],
-        //         'numero' => $data['numero'],
-        //         'senderEmail' => $data['email'],
-        //         'message' => $data['message'],
-        //     ];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $context = [
+                'nom' => $data['nom'],
+                'numero' => $data['numero'],
+                'senderEmail' => $data['email'],
+                'message' => $data['message'],
+            ];
 
-        //     $this->emailSender->sendEmail($data['email'],
-        //     'hamzabenattiayt2@gmail.com',  
-        //     'Nouveau message de contact Nouvsys',
-        //     'emails/contact.html.twig',
-        //     $context); 
+            $this->emailSender->sendEmail($data['email'],
+            'hamzabenattiayt2@gmail.com',  
+            'Nouveau message de contact Nouvsys',
+            'emails/contact.html.twig',
+            $context); 
 
-        //     $this->addFlash('success', 'Votre message a été envoyé avec succès');
-        //     return $this->redirectToRoute('app_home');
-                    
-        // }
+            $this->addFlash('success', 'Votre message a été envoyé avec succès');
+            return $this->redirectToRoute('app_home');          
+        }
 
-        return $this->render('contact/index.html.twig', [
-        ]);
+        return $this->render('pages/contact/index.html.twig', [
+            'contactForm' => $form
+        ]    );
     }
 
 
@@ -80,9 +80,9 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('app_home');
                     
         }
-
-        return $this->render('about/index.html.twig', [
-            'controller_name' => 'HomeController',
+        
+        return $this->render('pages/home/index.html.twig', [
+            'form' => $form
         ]);
     }
 }
