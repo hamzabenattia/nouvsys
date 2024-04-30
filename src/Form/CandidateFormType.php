@@ -65,7 +65,7 @@ class CandidateFormType extends AbstractType
                 ],
             ])
             ->add('cvFile',VichFileType::class,[
-                'label' => 'CV',
+                'label' => 'Télécharger votre CV',
                 'required' => true,
                 'allow_delete' => true,
                 'download_uri' => true,

@@ -19,6 +19,19 @@
           {% if app.user %}
           
           <li>
+            <a href="{{path('app_profile')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+              <div class="inline-flex items-center">
+                <svg class="h-5 w-5 rounded-full me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+                </svg>
+                Mon Profile
+              </div>
+            </a>
+          </li>
+
+
+
+          <li>
             <a href="{{path('app_logout')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
               <div class="inline-flex items-center">
                 <svg class="h-5 w-5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 91.839 122.88" enable-background="new 0 0 91.839 122.88" xml:space="preserve"><g>
@@ -28,6 +41,8 @@
               </div>
             </a>
           </li>
+
+         
           {% else %}
           <li>
             <a href="{{path('app_login')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
@@ -73,7 +88,7 @@
       </li>
       
       <li>
-        <a href="{{path('app_skills')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_skills' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Nous Compétences</a>
+        <a href="{{path('app_skills')}}" class="block py-2 px-3 hover:underline rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#18629C] md:p-0 dark:text-white md:dark:hover:text-[#18629C] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if app.request.attributes.get('_route') == 'app_skills' %}text-[#18629C] {% else %} text-gray-900 {% endif %}">Nos Compétences</a>
       
       </li>
       <li aria-labelledby="dropdownNavbarLink">

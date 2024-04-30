@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joindre Nous{% endblock %}
+
+{% block body %}
+
+
+<div class="mt-20 mx-8">
+
+  
+
+<div class="container mx-auto max-w-lg p-8 bg-white rounded-lg  mb-5 mt-10">
+    <h2 class="text-2xl font-bold mb-6 text-center">
+        N'hésite pas à postuler à l'offre
+    </h2>
+    <p class="text-gray-700  text-center mb-3" >
+        Il suffit de remplir le formulaire ci-dessous et de joindre votre CV.
+    </p>
+    <div class="mb-5">
+        <p class="text-gray-700 font-bold text-start mb-3">Résume:</p>
+        <p class="text-gray-700 text-start font-medium mb-2">Titre : <span class="text-primary">{{offre.title}} </span></p>
+        <div class="flex justify-start items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewbox="0 0 32 32"><path fill="currentColor" d="M16 18a5 5 0 1 1 5-5a5.006 5.006 0 0 1-5 5m0-8a3 3 0 1 0 3 3a3.003 3.003 0 0 0-3-3"/><path fill="currentColor" d="m16 30l-8.436-9.949a35 35 0 0 1-.348-.451A10.9 10.9 0 0 1 5 13a11 11 0 0 1 22 0a10.9 10.9 0 0 1-2.215 6.597l-.001.003s-.3.394-.345.447ZM8.813 18.395s.233.308.286.374L16 26.908l6.91-8.15c.044-.055.278-.365.279-.366A8.9 8.9 0 0 0 25 13a9 9 0 1 0-18 0a8.9 8.9 0 0 0 1.813 5.395"/></svg>
+            <p class="text-primary font-medium dark:text-gray-200 ml-2">{{offre.location}}</p>
+        </div>
+        <div class="flex justify-start items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 " viewbox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><path d="M14 14h6v5a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM4 4h6v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/></g>
+            </svg>
+            <p class="text-primary font-medium dark:text-gray-200 ml-2">{{offre.category}}</p>
+
+        </div>
+
+        <div class="flex justify-start items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 " viewBox="0 0 2048 2048"><path fill="currentColor" d="M2048 384v1280H0V384h640V256q0-27 10-50t27-40t41-28t50-10h512q27 0 50 10t40 27t28 41t10 50v128zm-1280 0h512V256H768zM128 512v185l640 319V896h512v120l640-319V512zm768 512v128h256v-128zm1024 512V839l-640 321v120H768v-120L128 839v697z"/></svg>
+            <p class="text-primary font-medium dark:text-gray-200 ml-2">{{offre.type}}</p>
+
+        </div>
+    
+    </div>
+
+    {% if disable %}
+
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">Vous avez déjà postulé à cette offre.</span>
+        <p>
+            vous pouvez le consulter et le modifier dans votre espace personnel
+        </p>
+    </div>
+
+    {% else %}
+    {{form_start(form)}}
+    {{form_row(form.firstName,{
+    'attr':{
+        'value':user.firstName,
+    }
+    })}}
+    {{form_row(form.lastName,{
+        'attr':{
+            'value':user.lastName,
+        }
+        })}}
+    {{form_row(form.email,{
+        'attr':{
+            'value':user.email,
+        }
+        })}}
+    {{form_row(form.phoneNumber,{
+        'attr':{
+            'value':user.phoneNumber,
+        }
+        })}}
+    {{form_row(form.cvFile)}}
+
+    {{form_row(form.message)}}
+
+    {{form_row(form.agreeTerms)}}
+
+    <div class="flex justify-center items-center gap-5">
+        {{form_row(form.submit)}}
+
+        <a href="{{path('app_offres_show', {'id': offre.id})}}" class="bg-black  text-white font-bold py-2 px-4 rounded-lg  ml-4">Annuler</a>
+        
+</div> 
+
+    {{form_end(form)}}
+
+
+    
+    
+    {% endif %}
+    
+    
+    
+
+</div>
+
+{% endblock %}

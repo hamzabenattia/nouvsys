@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OffresRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,10 +34,17 @@ class Offres
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * @var Collection<int, Candidate>
+     */
+    #[ORM\OneToMany(targetEntity: Candidate::class, mappedBy: 'offre')]
+    private Collection $candidates;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->candidates = new ArrayCollection();
     }
 
 
@@ -121,6 +130,36 @@ class Offres
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidate $candidate): static
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates->add($candidate);
+            $candidate->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): static
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getOffre() === $this) {
+                $candidate->setOffre(null);
+            }
+        }
+
+        return $this;
     }
 }
 

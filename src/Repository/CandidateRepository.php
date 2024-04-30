@@ -21,6 +21,22 @@ class CandidateRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidate::class);
     }
 
+
+    //show all candidates by user
+    public function findAllByUser($email): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.email = :email')
+            ->andWhere('c.offre IS NOT NULL')
+            ->setParameter('email', $email)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */

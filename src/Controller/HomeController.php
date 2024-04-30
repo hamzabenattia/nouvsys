@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         return $this->render('pages/about/index.html.twig');
     }
 
-    #[Route('/nous-competences', name: 'app_skills')]
+    #[Route('/nos-competences', name: 'app_skills')]
     public function skills(): Response
     {
         return $this->render('pages/skills/index.html.twig');

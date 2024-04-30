@@ -13,6 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Vich\Uploadable]
 class Candidate
 {
+
+    const TYPE_SPONTANEOUS = 'Candidature spontanée';
+    const TYPE_OFFER = 'Réponse à une offre';
+    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -44,6 +49,12 @@ class Candidate
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $message = null;
+
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    private ?Offres $offre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
 
     public function __construct()
@@ -176,5 +187,34 @@ class Candidate
         $this->message = $message;
 
         return $this;
+    }
+
+    public function getOffre(): ?Offres
+    {
+        return $this->offre;
+    }
+
+    public function setOffre(?Offres $offre): static
+    {
+        $this->offre = $offre;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }

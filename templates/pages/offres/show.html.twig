@@ -62,8 +62,9 @@
 
 			<div class="flex flex-col md:flex-row justify-center items-center gap-4">
 				<h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-100 mt-2">{{offre.title}}</h1>
-				<button class="bg-primary font-semibold text-white py-2 px-4 rounded-2xl hover:bg-[#132634] dark:bg-[#18629C] dark:text-white">Je suis intéressé</button>
-
+				<a href="{{path('app_offre_postule',{'id': offre.id})}}" class="bg-primary items-center text-center font-semibold text-white py-2 px-4 rounded-2xl hover:bg-[#132634] dark:bg-[#18629C] dark:text-white">
+					Je suis intéressé
+				</a>
 
 			</div>
 
@@ -72,7 +73,10 @@
 
                 {{offre.description | raw}}
 
-				<button class="bg-primary items-center font-semibold text-white py-2 px-4 rounded-2xl hover:bg-[#132634] dark:bg-[#18629C] dark:text-white">Je suis intéressé</button>
+				
+				<a href="{{path('app_offre_postule',{'id': offre.id})}}" class="bg-primary items-center text-center font-semibold text-white py-2 px-4 rounded-2xl hover:bg-[#132634] dark:bg-[#18629C] dark:text-white">
+					Je suis intéressé
+				</a>
 
             </div>	
 
