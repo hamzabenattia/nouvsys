@@ -14,19 +14,19 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/mes-candidats')]
-#[IsGranted('ROLE_USER')]
 class UserCandidateController extends AbstractController
 {
     #[Route('/', name: 'app_user_candidate_index', methods: ['GET'])]
     public function index(CandidateRepository $candidateRepository , #[CurrentUser] User $user): Response
     {
-        return $this->render('user_candidate/index.html.twig', [
+        return $this->render('pages/user_candidate/index.html.twig', [
             'candidates' => $candidateRepository->findAllByUser($user->getEmail()),
         ]);
     }
 
 
     #[Route('/{id}', name: 'app_user_candidate_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Candidate $candidate, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$candidate->getId(), $request->getPayload()->get('_token'))) {

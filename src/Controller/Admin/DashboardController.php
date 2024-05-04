@@ -5,13 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Candidate;
 use App\Entity\Offres;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Locale;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/dashboard', name: 'admin')]
@@ -62,8 +63,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class);
-        yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-users', Candidate::class);
+        yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-users', Candidate::class)->setPermission('ROLE_ADMIN');
 
     }
 }

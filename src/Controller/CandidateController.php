@@ -11,10 +11,12 @@ use App\Repository\OffresRepository;
 use App\Service\EmailSender;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
@@ -86,19 +88,17 @@ class CandidateController extends AbstractController
 
             $this->addFlash('success', 'Votre candidature a bien été enregistrée pour l\'offre ' . $offres->getTitle());
             
-            $email = (new Email())
-                ->from('noreplay@nouvsys.fr')
-                ->to($candidate->getEmail())
-                ->subject('Votre candidature a bien été enregistrée')
-                ->html(' 
-            <div class="text-center">
-            <p>Bonjour ' . $candidate->getFirstname() . '</p>
-            <p>Votre candidature a bien été enregistrée pour l\'offre ' . $offres->getTitle() . '</p>            
-            <p>Vous pouvvez gérer votre candidature depuis votre espace candidat</p> <a href="">Espace candidat</a>
-            <p>Nous vous remercions pour votre confiance</p>
-            <p>L\'équipe de Nouvsys</p>
-            </div>')
-            ;
+
+            $email = (new TemplatedEmail())
+            ->from(new Address('noreply@nouvsys.fr', 'noreply'))
+            ->to($candidate->getEmail())
+            ->subject('Votre candidature a bien été enregistrée')
+            ->htmlTemplate('emails/candidat.html.twig')
+            ->context([
+                'candidate' => $candidate,
+                'offres' => $offres,
+            ]);
+
             $this->mailer->send($email);
             return $this->redirectToRoute('app_offres');
 
