@@ -35,12 +35,6 @@ class ContactFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir votre numéro de téléphone',
                     ]),
-                    new Length([
-                        'min' => 10,
-                        'minMessage' => 'Votre numéro de téléphone doit contenir au moins {{ limit }} caractères',
-                        'max' => 4096,
-                    ]),
-
                 ],
             ])
             ->add('email',EmailType::class,[

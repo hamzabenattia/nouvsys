@@ -44,27 +44,23 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('Nouvsys Dashboard')
-            
             ->setFaviconPath("images/favicon.png")
+            ->generateRelativeUrls();
 
-
-
-
-
-            ->generateRelativeUrls()
-
-
-            ->setLocales([
-                'fr' => '🇫🇷 Français',
-                'en' => '🇬🇧 English'
-            ]);
     }
 
     public function configureMenuItems(): iterable
     {
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Accueill', 'fa fa-home', 'app_home');
+
         yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-users', Candidate::class)->setPermission('ROLE_ADMIN');
+        //profile route
+
+        yield MenuItem::section('Autres');
+        yield MenuItem::linkToRoute('Profile', 'fa fa-user', 'app_profile');
+        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
 
     }
 }

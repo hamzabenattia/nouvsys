@@ -34,7 +34,7 @@
             <div class="mb-12 max-w-[570px] lg:mb-0">
               
                <h2
-                  class="text-dark dark:text-white mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]"
+                  class="text-primary dark:text-white mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]"
                   >
                   N'hésitez pas à nous contacter
                </h2>
@@ -146,48 +146,56 @@
                <form method="post">
                   <div class="mb-6">
                      <input
+                     required
                         type="text"
                         placeholder="Votre Nom"
                         name="contact_form[nom]"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
+                        <div class="text-red-500 text-sm my-2">
+                           {{ form_errors(contactForm.nom) }}
+                        </div>
                   </div>
-                  <div class="text-red-500 text-sm">
-                     {{ form_errors(contactForm.nom) }}
-                  </div>
+                 
                   <div class="mb-6">
                      <input
                         type="email"
+                        required
                         placeholder="Votre Email"
                         name="contact_form[email]"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
+                        <div class="text-red-500 text-sm my-2">
+                           {{ form_errors(contactForm.email) }}
+                        </div>
                   </div>
-                  <div class="text-red-500 text-sm">
-                     {{ form_errors(contactForm.email) }}
-                  </div>
+                 
                   <div class="mb-6">
                      <input
                         type="tel"
+                        required
                         name="contact_form[numero]"
                         placeholder="Votre Numéro de Téléphone"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none"
                         />
+                        <div class="text-red-500 text-sm">
+                           {{ form_errors(contactForm.numero) }}
+                        </div>
                   </div>
-                  <div class="text-red-500 text-sm">
-                     {{ form_errors(contactForm.numero) }}
-                  </div>
+                  
                   <div class="mb-6">
                      <textarea
                         rows="6"
+                        required
                         placeholder="Votre Message"
                         name="contact_form[message]"
                         class="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none"
                         ></textarea>
+                        <div class="text-red-500 text-sm my-2 ">
+                           {{ form_errors(contactForm.message) }}
+                        </div>
                   </div>
-                  <div class="text-red-500 text-sm">
-                     {{ form_errors(contactForm.message) }}
-                  </div>
+                 
                   <div>
                      <input type="hidden" id="contact_form__token" name="contact_form[_token]" value="{{ csrf_token('contact_form') }}"/>
 
