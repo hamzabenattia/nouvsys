@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Offres;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<Offres>
@@ -16,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OffresRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Offres::class);
     }
@@ -45,4 +47,33 @@ class OffresRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    public function search($location , $type)
+    {
+       //show all offers if no filter is applied
+       
+
+        $query = $this->createQueryBuilder('o');
+        if ($location != "") {
+            $query->andWhere('o.location = :location')
+                ->setParameter('location', $location);
+        }
+
+        if ($type != "") {
+            $query->andWhere('o.type = :type')
+                ->setParameter('type', $type);
+        }
+
+        $request = Request::createFromGlobals();
+
+        $pagination = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+
+
+        return $pagination;
+    }
 }

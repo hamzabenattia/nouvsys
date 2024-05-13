@@ -18,14 +18,8 @@ class OffresController extends AbstractController
     #[Route('/', name: 'app_offres', methods: ['GET'])]
     public function index(OffresRepository $offresRepository , PaginatorInterface $paginator, Request $request): Response
     {
-        $offers = $paginator->paginate(
-            $offresRepository->findAll(), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-
+       
         return $this->render('pages/offres/index.html.twig', [
-            'offers' => $offers,
         ]);
     }
 

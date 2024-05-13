@@ -42,6 +42,7 @@
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
         "symfony/ux-icons": "^2.17",
+        "symfony/ux-live-component": "^2.17",
         "symfony/ux-turbo": "^2.17",
         "symfony/ux-typed": "^2.16",
         "symfony/validator": "7.0.*",

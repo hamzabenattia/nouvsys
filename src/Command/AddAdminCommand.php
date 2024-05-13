@@ -43,7 +43,6 @@ class AddAdminCommand extends Command
         $user->setPhoneNumber("12345678");
         $plainPassword = "12345678";
 
-        // See https://symfony.com/doc/5.4/security.html#registering-the-user-hashing-passwords
         $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
 
