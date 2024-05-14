@@ -7,29 +7,22 @@ use App\Entity\Offres;
 use App\Entity\User;
 use App\Form\CandidateFormType;
 use App\Repository\CandidateRepository;
-use App\Repository\OffresRepository;
 use App\Service\EmailSender;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class CandidateController extends AbstractController
 {
-    private MailerInterface $mailer;
 
-    public function __construct(MailerInterface $mailer)
+
+    public function __construct(private EmailSender $emailSender)
     {
-        $this->mailer = $mailer;
     }
-
 
 
     #[Route('/joindre-nos', name: 'app_candidate')]
@@ -45,23 +38,19 @@ class CandidateController extends AbstractController
             $this->addFlash('success', 'Votre candidature a bien été enregistrée');
 
 
-            $email = (new Email())
-                ->from('noreplay@nouvsys.fr')
-                ->to($candidate->getEmail())
-                ->subject('Votre candidature a bien été enregistrée')
-                ->html('
-            <div class="text-center">
-            <p>Bonjour ' . $candidate->getFirstname() . '</p>
-            <p>Votre candidature a bien été enregistrée</p>
-            <p>Nous vous remercions pour votre confiance</p>
-            <p>L\'équipe de Nouvsys</p>
-            </div>
-           
-            ');
-            $this->mailer->send($email);
+            $this->emailSender->sendEmail(
+                new Address('noreply@nouvsys.fr', 'noreply'),
+                $candidate->getEmail(),
+                'Votre candidature a bien été enregistrée',
+                'emails/candidat_spontaneous.html.twig',
+                [
+                    'candidate' => $candidate,
+                ]
+            );
+
+
             return $this->redirectToRoute('app_candidate');
         }
-
 
         return $this->render('pages/candidate/index.html.twig', [
             'form' => $form,
@@ -69,8 +58,8 @@ class CandidateController extends AbstractController
     }
 
 
-    #[Route('/candidature/{id}', name: 'app_offre_postule', methods: ['GET','POST'])]
-    public function offre(Request $request, EntityManagerInterface $em, Offres $offres , CandidateRepository $cr,  #[CurrentUser] User $user ) : Response
+    #[Route('/candidature/{id}', name: 'app_offre_postule', methods: ['GET', 'POST'])]
+    public function offre(Request $request, EntityManagerInterface $em, Offres $offres, CandidateRepository $cr,  #[CurrentUser] User $user): Response
     {
 
         $candidate = new Candidate();
@@ -87,36 +76,31 @@ class CandidateController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Votre candidature a bien été enregistrée pour l\'offre ' . $offres->getTitle());
-            
 
-            $email = (new TemplatedEmail())
-            ->from(new Address('noreply@nouvsys.fr', 'noreply'))
-            ->to($candidate->getEmail())
-            ->subject('Votre candidature a bien été enregistrée')
-            ->htmlTemplate('emails/candidat.html.twig')
-            ->context([
-                'candidate' => $candidate,
-                'offres' => $offres,
-            ]);
+            $this->emailSender->sendEmail(
+                new Address('noreply@nouvsys.fr', 'noreply'),
+                $candidate->getEmail(),
+                'Votre candidature a bien été enregistrée',
+                'emails/candidat_offre.html.twig',
+                [
+                    'candidate' => $candidate,
+                    'offres' => $offres,
+                ]
+            );
 
-            $this->mailer->send($email);
             return $this->redirectToRoute('app_offres');
+        }
 
-    }
-    
-    $userAlreadyApplied = $cr->findOneBy([
-        'offre' => $offres,
-        'email' => $user->getEmail()
-    ]);
+        $userAlreadyApplied = $cr->findOneBy([
+            'offre' => $offres,
+            'email' => $user->getEmail()
+        ]);
         return $this->render('pages/candidate/offre.html.twig', [
             'form' => $form,
-            'user' => $user, 
+            'user' => $user,
             'offre' => $offres,
             'disable' => $userAlreadyApplied ? true : false
 
-
         ]);
     }
-
-
 }

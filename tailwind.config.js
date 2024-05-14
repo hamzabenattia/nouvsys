@@ -9,6 +9,7 @@ module.exports = {
     // set up the path to the flowbite package
   ],
   theme: {
+    darkMode: 'class',
     colors: {
       'primary': '#18629C',
     },

@@ -4,10 +4,8 @@
 namespace App\Service;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 
 class EmailSender
 {
@@ -26,8 +24,8 @@ class EmailSender
     public function sendEmail($sender,$recipient ,$subject, $html, $context)
     {
         $email = (new TemplatedEmail())
-                ->from(new Address($sender))
-                ->to(new Address($recipient))
+                ->from($sender)
+                ->to($recipient)
                 ->subject($subject)
 
                 // path of the Twig template to render
@@ -43,10 +41,8 @@ class EmailSender
                 $this->mailer->send($email);
 
             } catch (TransportExceptionInterface $e) {
-
-                dd($e->getMessage());
-                // some error prevented the email sending; display an
-                // error message or try to resend the message
+                // show error message
+                
             }
     }
 }

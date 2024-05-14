@@ -6,6 +6,7 @@ use App\Entity\Candidate;
 use App\Entity\User;
 use App\Repository\CandidateRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +18,17 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class UserCandidateController extends AbstractController
 {
     #[Route('/', name: 'app_user_candidate_index', methods: ['GET'])]
-    public function index(CandidateRepository $candidateRepository , #[CurrentUser] User $user): Response
+    public function index(CandidateRepository $candidateRepository , #[CurrentUser] User $user , PaginatorInterface $paginator, Request $request): Response
     {
+
+        $candidate = $paginator->paginate(
+            $candidateRepository->findAllByUser($user->getEmail()),
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('pages/user_candidate/index.html.twig', [
-            'candidates' => $candidateRepository->findAllByUser($user->getEmail()),
+            'candidates' => $candidate,
         ]);
     }
 

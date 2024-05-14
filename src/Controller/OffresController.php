@@ -3,12 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Offres;
-use App\Form\OffresType;
-use App\Repository\OffresRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -16,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class OffresController extends AbstractController
 {
     #[Route('/', name: 'app_offres', methods: ['GET'])]
-    public function index(OffresRepository $offresRepository , PaginatorInterface $paginator, Request $request): Response
+    public function index(): Response
     {
        
         return $this->render('pages/offres/index.html.twig', [
