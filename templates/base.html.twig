@@ -29,7 +29,13 @@
 	<body>
 		
 		{% include 'components/_navbar.html.twig' %}
-		{% block body %}{% endblock %}
+		{% block body %}
+		{% endblock %}
+		<a href="#" id="back-to-top" class="fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded shadow-md transition duration-300 ease-in-out transform hover:scale-105"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+			<path stroke="currentColor" class="text-white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"/>
+		  </svg>
+		  </a>
+
 		{% include 'components/_footer.html.twig' %}
 	</body>
 </html>

@@ -17,5 +17,15 @@ document.addEventListener('turbo:submit-start', (event) => {
 })
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    var button = document.getElementById('back-to-top');
+
+    button.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
