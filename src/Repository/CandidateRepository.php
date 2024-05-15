@@ -34,6 +34,21 @@ class CandidateRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    //get count par type de candidature
+    public function countByType(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.type, COUNT(c.id) as count')
+            ->groupBy('c.type')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+        
+
+   
 
 
 

@@ -5,7 +5,7 @@
     <td bgcolor="#FFFFFF" style="border: 1px solid #eeeeee; background-color: #ffffff; border-radius:5px; display:block!important; max-width:600px!important; margin:0 auto!important; clear:both!important;"><div style="padding:20px; max-width:600px; margin:0 auto; display:block;">
     <table style="width: 100%;">
     <tr>
-    <h1 style="font-weight: 200; font-size: 16px; margin: 20px 0 30px 0; color: #333333;">Bonjour {{ candidate.firstname }}</h1>
+    <h1 style="font-weight: 200; font-size: 16px; margin: 20px 0 30px 0; color: #333333;">Bonjour {{ candidate.user.firstname }}</h1>
     <h1 style="font-weight: 200; font-size: 16px; margin: 20px 0 30px 0; color: #333333;">Votre candidature a bien été enregistrée pour l'offre <a href="{{url('app_offres_show',{id:offres.id})}}"> {{offres.title}}</a></h1>
     <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;"> Vous pouvvez gérer votre candidature depuis votre espace candidat <a href="{{url('app_user_candidate_index')}}">Espace candidat</a></h2>
     <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;"> Nous vous remercions pour votre confiance </h2>

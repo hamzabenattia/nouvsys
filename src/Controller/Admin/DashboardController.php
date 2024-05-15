@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Candidate;
 use App\Entity\Offres;
+use App\Entity\SpontaneousCandidate;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -55,9 +57,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Accueill', 'fa fa-home', 'app_home');
 
         yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class)->setPermission('ROLE_ADMIN');
-        yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-users', Candidate::class)->setPermission('ROLE_ADMIN');
-        //profile route
+        yield MenuItem::subMenu('Candidate', 'fa-solid fa-users')->setSubItems([
+            MenuItem::linkToCrud('Candidate Spontanée', 'fa-solid fa-id-badge', SpontaneousCandidate::class),
+            MenuItem::linkToCrud('Réponse à une offre', 'fa fa-file-text', Candidate::class),
+            MenuItem::linkToCrud('Liste des candidats', 'fa-solid fa-users', User::class),
 
+        ])->setPermission('ROLE_ADMIN');;
+
+        
         yield MenuItem::section('Autres');
         yield MenuItem::linkToRoute('Profile', 'fa fa-user', 'app_profile');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');

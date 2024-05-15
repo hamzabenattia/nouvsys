@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -51,9 +53,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * @var Collection<int, Candidate>
+     */
+    #[ORM\OneToMany(targetEntity: Candidate::class, mappedBy: 'user')]
+    private Collection $candidates;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->candidates = new ArrayCollection();
     }
 
 
@@ -194,5 +203,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
+     * @return Collection<int, Candidate>
+     */
+    public function getCandidates(): Collection
+    {
+        return $this->candidates;
+    }
+
+    public function addCandidate(Candidate $candidate): static
+    {
+        if (!$this->candidates->contains($candidate)) {
+            $this->candidates->add($candidate);
+            $candidate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidate(Candidate $candidate): static
+    {
+        if ($this->candidates->removeElement($candidate)) {
+            // set the owning side to null (unless already changed)
+            if ($candidate->getUser() === $this) {
+                $candidate->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

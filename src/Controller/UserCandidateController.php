@@ -22,7 +22,7 @@ class UserCandidateController extends AbstractController
     {
 
         $candidate = $paginator->paginate(
-            $candidateRepository->findAllByUser($user->getEmail()),
+            $candidateRepository->findBy(['user' => $user], ['createdAt' => 'DESC']),
             $request->query->getInt('page', 1),
             5
         );

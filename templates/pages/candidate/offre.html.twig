@@ -47,29 +47,12 @@
             Vous pouvez consulter votre candidature dans votre <a href="{{path('app_user_candidate_index')}}" class="text-primary">espace candidat</a> 
         </p>
     </div>
-
+    
     {% else %}
+
+
     {{form_start(form)}}
-    {{form_row(form.firstName,{
-    'attr':{
-        'value':user.firstName,
-    }
-    })}}
-    {{form_row(form.lastName,{
-        'attr':{
-            'value':user.lastName,
-        }
-        })}}
-    {{form_row(form.email,{
-        'attr':{
-            'value':user.email,
-        }
-        })}}
-    {{form_row(form.phoneNumber,{
-        'attr':{
-            'value':user.phoneNumber,
-        }
-        })}}
+    
     {{form_row(form.cvFile)}}
 
     {{form_row(form.message)}}

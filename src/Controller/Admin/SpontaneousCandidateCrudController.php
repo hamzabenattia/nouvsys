@@ -2,28 +2,37 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Candidate;
+use App\Entity\SpontaneousCandidate;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 
-#[IsGranted('ROLE_ADMIN')]
-class CandidateCrudController extends AbstractCrudController
+class SpontaneousCandidateCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Candidate::class;
+        return SpontaneousCandidate::class;
     }
+
+
+    public function configureCrud(Crud $crud): Crud
+{
+    return $crud
+        // the labels used to refer to this entity in titles, buttons, etc.
+        ->setEntityLabelInSingular('Candidature spontanée')
+        ->setEntityLabelInPlural('Candidatures spontanées')
+        ->setEntityPermission('ROLE_ADMIN')
+    ;
+}
+
 
     public function configureActions(Actions $actions): Actions
     {
@@ -31,8 +40,6 @@ class CandidateCrudController extends AbstractCrudController
         $viewCV = Action::new('Télecharger le Cv', 'Télecharger le Cv', 'fa fa-download')
             ->linkToUrl(fn ($entity) => '/files/cv/' . $entity->getCv())
             ->displayIf(fn ($entity) => $entity->getCv() !== null);
-
-
 
 
         return $actions
@@ -45,26 +52,29 @@ class CandidateCrudController extends AbstractCrudController
             ->add(Crud::PAGE_DETAIL, $viewCV);
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id'),
-            TextField::new('user.firstName')->setLabel('Prénom'),
-            TextField::new('user.lastName')->setLabel('Nom'),
-            TextField::new('user.email')->setLabel('Email'),
-            TextField::new('user.phoneNumber')->setLabel('Téléphone'),
+            TextField::new('firstName')->setLabel('Prénom'),
+            TextField::new('lastName')->setLabel('Nom'),
+            TextField::new('email')->setLabel('Email'),
+            TextField::new('phoneNumber')->setLabel('Téléphone'),
             TextEditorField::new('message')->setLabel('Message'),
-            AssociationField::new('offre')->autocomplete(),
             DateField::new('createdAt')->setLabel('Date de postulation'),
         ];
     }
+ 
 
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
             ->add(DateTimeFilter::new('createdAt', 'Date de postulation'))
-            ->add(EntityFilter::new('offre', 'Offre'))
-            ->add(EntityFilter::new('user','Candidate'));
-    }
+            ->add(TextFilter::new('email', 'Email'))
+            ->add('phoneNumber','Téléphone')
+        ;
+        }
+
+
+
 }
