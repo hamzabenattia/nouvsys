@@ -21,6 +21,30 @@ class CandidateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
+            ->add('firstName',TextType::class,[
+                'label' => 'Prénom',
+                'mapped' => false,
+                'disabled' => true,
+            ])
+            ->add('lastName',TextType::class,[
+                'label' => 'Nom',
+                'mapped' => false,
+                'disabled' => true,
+
+            ])
+            ->add('email',EmailType::class,[
+                'label' => 'Email',
+                'mapped' => false,
+                'disabled' => true,
+
+            ])
+            ->add('phoneNumber',TextType::class,[
+                'label' => 'Téléphone',
+                'mapped' => false,
+                'disabled' => true,
+
+            ])
             
             ->add('cvFile',VichFileType::class,[
                 'label' => 'Télécharger votre CV',

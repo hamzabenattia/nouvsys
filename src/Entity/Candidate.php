@@ -54,6 +54,7 @@ class Candidate
     private ?string $status = null;
 
 
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

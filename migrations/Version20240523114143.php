@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240430082421 extends AbstractMigration
+final class Version20240523114143 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20240430082421 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE candidate ADD type VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE offres ADD is_published TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE candidate DROP type');
+        $this->addSql('ALTER TABLE offres DROP is_published');
     }
 }

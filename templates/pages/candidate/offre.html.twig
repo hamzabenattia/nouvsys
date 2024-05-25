@@ -52,7 +52,25 @@
 
 
     {{form_start(form)}}
+
+    {{form_row(form.firstName,{
+        value: app.user.firstName
+    })}}
+
+    {{form_row(form.lastName,{
+        value: app.user.lastName
+    })}}
+
+    {{form_row(form.email,{
+        value: app.user.email
+    })}}
     
+        {{form_row(form.phoneNumber,{
+        value: app.user.phoneNumber
+        })}}
+
+
+
     {{form_row(form.cvFile)}}
 
     {{form_row(form.message)}}

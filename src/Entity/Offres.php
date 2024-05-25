@@ -40,6 +40,9 @@ class Offres
     #[ORM\OneToMany(targetEntity: Candidate::class, mappedBy: 'offre')]
     private Collection $candidates;
 
+    #[ORM\Column]
+    private ?bool $isPublished = true;
+
 
     public function __construct()
     {
@@ -158,6 +161,20 @@ class Offres
                 $candidate->setOffre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+
+
+    public function setIsPublished(?bool $isPublished): static
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }

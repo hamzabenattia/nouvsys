@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -26,8 +27,13 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
-            
+            $this->redirectToRoute('app_profile');
+
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès !');
+            return $this->redirectToRoute('app_profile');          
+
+
+
         }
 
 
@@ -36,10 +42,8 @@ class ProfileController extends AbstractController
 
         if ($ChangePasswordform->isSubmitted() && $ChangePasswordform->isValid()) {
             $em->flush();
-
-            // The logout method applies an automatic protection against CSRF attacks;
-            // it's explicitly disabled here because the form already has a CSRF token validated.
-            return $security->logout(validateCsrfToken: false) ?? $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès ! sil vous plait connectez-vous à nouveau.');
+            return $security->logout(validateCsrfToken: false) ?? $this->redirectToRoute('app_login');
         }
 
 

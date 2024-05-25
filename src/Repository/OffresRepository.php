@@ -51,10 +51,8 @@ class OffresRepository extends ServiceEntityRepository
 
     public function search($location , $type)
     {
-       //show all offers if no filter is applied
        
-
-        $query = $this->createQueryBuilder('o');
+        $query = $this->createQueryBuilder('o')->andWhere('o.isPublished = 1');
         if ($location != "") {
             $query->andWhere('o.location = :location')
                 ->setParameter('location', $location);

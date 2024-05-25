@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Candidate;
+use App\Service\EmailSender;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -10,19 +12,26 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Validator\Constraints\Choice;
 
 #[IsGranted('ROLE_ADMIN')]
 class CandidateCrudController extends AbstractCrudController
 {
+    public function __construct(private EmailSender $emailSender)
+    {
+    }
+
+
+
     public static function getEntityFqcn(): string
     {
         return Candidate::class;
@@ -46,12 +55,13 @@ class CandidateCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->setDisabled(),
+            IdField::new('id')->setDisabled()->hideOnForm(),
             TextField::new('user.firstName')->setLabel('Prénom')->setDisabled(),
             TextField::new('user.lastName')->setLabel('Nom')->setDisabled(),
-            TextField::new('user.email')->setLabel('Email')->setDisabled(),
-            TextField::new('user.phoneNumber')->setLabel('Téléphone')->setDisabled(),
-            TextEditorField::new('message')->setLabel('Message')->setDisabled(),
+            EmailField::new('user.email')->setLabel('Email')->setDisabled(),
+            TelephoneField::new('user.phoneNumber')->setLabel('Téléphone')->setDisabled(),
+            TextEditorField::new('message')->setLabel('Message')->hideOnForm(),
+            AssociationField::new('offre')->autocomplete()->setDisabled(),
             ChoiceField::new('status')->setChoices([
                 Candidate::STATUS_PENDING => Candidate::STATUS_PENDING,
                 Candidate::STATUS_ACCEPTED => Candidate::STATUS_ACCEPTED,
@@ -64,8 +74,9 @@ class CandidateCrudController extends AbstractCrudController
                 ]
 
             )->setLabel('Statut'),
-            AssociationField::new('offre')->autocomplete(),
-            DateField::new('createdAt')->setLabel('Date de postulation'),
+            DateTimeField::new('createdAt')->setLabel('Date de postulation')->hideOnForm(),
+            DateTimeField::new('updatedAt')->setLabel('Date de modification')->hideOnForm(),
+            
         ];
     }
 
@@ -81,4 +92,41 @@ class CandidateCrudController extends AbstractCrudController
                 Candidate::STATUS_REFUSED => Candidate::STATUS_REFUSED,
             ]));
     }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $entityManager->persist($entityInstance);
+        $entityInstance->setupdatedAt(new \DateTimeImmutable());
+        if ($entityInstance->getStatus() === Candidate::STATUS_ACCEPTED) {
+            $this->emailSender->sendEmail(
+            'noreply@nouvsys.fr',
+            $entityInstance->getUser()->getEmail(),  
+            'Votre candidature au poste de '.$entityInstance->getOffre()->getTitle(). ' Deuxième phase de sélection',
+            'emails/candidat_accept.html.twig',
+            [
+                'candidate' => $entityInstance,
+                'offres' => $entityInstance->getOffre(),
+            ],
+            );
+        }else if($entityInstance->getStatus() === Candidate::STATUS_REFUSED){
+            $this->emailSender->sendEmail(
+                'noreply@nouvsys.fr',
+                $entityInstance->getUser()->getEmail(),  
+                'Suite à votre candidature au poste de '. $entityInstance->getOffre()->getTitle().' chez Nouvsys',
+                'emails/candidat_refuse.html.twig',
+                [
+                    'candidate' => $entityInstance,
+                    'offres' => $entityInstance->getOffre(),
+                ],
+                ); 
+        }
+        $entityManager->flush();
+    }
+    
+
+
+
 }
+
+
+
