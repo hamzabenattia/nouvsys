@@ -28,9 +28,6 @@ class SecurityController extends AbstractController
             'error' => $error,
         ]);
 
-       
-
-        
 
         $this->addFlash('success', 'Bienvenue sur votre espace sécurisé');
     }

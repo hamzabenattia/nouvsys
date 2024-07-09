@@ -52,7 +52,8 @@ class RegistrationController extends AbstractController
                     ->from(new Address('notreplay@nouvsys.fr', 'Nouvsys'))
                     ->to($user->getEmail())
                     ->subject('Veuillez confirmer votre email')
-                    ->htmlTemplate('pages/registration/confirmation_email.html.twig')
+                    ->htmlTemplate('emails/confirmation_email.html.twig')
+                    ->context(['user' => $user])
             );
 
             // do anything else you need here, like send an email
