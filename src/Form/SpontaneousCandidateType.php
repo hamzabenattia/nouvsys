@@ -7,10 +7,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -59,10 +61,84 @@ class SpontaneousCandidateType extends AbstractType
                 'label' => 'Téléphone',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez saisir votre numéro de téléphone',
+                        'message' => 'Veuillez sélectioner votre numéro de téléphone',
                     ]),
                 ],
             ])
+            ->add('ville',ChoiceType::class,[
+                'label' => 'Adresse',
+                'choices' => [
+                'Selectioner votre ville' => null,
+                'Paris' => 'Paris',
+                'Lyon' => 'Lyon',
+                'Marseille' => 'Marseille',
+                'Bordeaux' => 'Bordeaux',
+                'Lille' => 'Lille',
+                'Toulouse' => 'Toulouse',
+                'Nantes' => 'Nantes',
+                'Strasbourg' => 'Strasbourg',
+                'Montpellier' => 'Montpellier',
+                'Rennes' => 'Rennes',
+                'Autre' => 'Autre',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectioner votre ville',
+                    ]),
+                ],
+            ])
+            ->add('educationLevel',ChoiceType::class,[
+                'label' => 'Niveau d\'études',
+                'choices' => [
+                    'Selectioner votre niveau d\'études' => null,
+                'Niveau Bac' => 'Niveau Bac',
+                'Licence' => 'Licence',
+                'Master' => 'Master',
+                'Bac+5' => 'Bac+5',
+                'Autre' => 'Autre', 
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectioner votre niveau d\'études',
+                    ]),
+                ],
+            ])
+            ->add('experience',ChoiceType::class,[
+                'label' => 'Expérience',
+                'choices' => [
+                'Selectioner votre experience' => null,
+                'Moins de 3 ans' => 'Moins de 3 ans',
+                'de 3 à 5 ans' => 'de 3 à 5 ans',
+                'de 6 à 10 ans' => 'de 6 à 10 ans',
+                'Plus de 10 ans' => 'Plus de 10 ans',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectioner votre experience',
+                    ]),
+                ],
+            ])
+            ->add('fonction',ChoiceType::class,[
+                'label' => 'Fonction',
+                'choices' => [
+                    'Selectioner votre domaine' => null,
+
+                    'Développeur Web' => 'Développeur Web',
+                    'Développeur Mobile' => 'Développeur Mobile',
+                    'Designer' => 'Designer',
+                    'Chef de projet' => 'Chef de projet',
+                    'Technicien' => 'Technicien',
+                    'Commercial' => 'Commercial',
+                    'Testeur' => 'Testeur',
+                    'Autre' => 'Autre'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectioner votre experience',
+                    ]),
+                ],
+            ])
+
             ->add('cvFile',VichFileType::class,[
                 'label' => 'Télécharger votre CV',
                 'required' => true,

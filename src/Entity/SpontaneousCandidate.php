@@ -51,6 +51,18 @@ class SpontaneousCandidate
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $ville = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $educationLevel = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $experience = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $fonction = null;
+
 
     public function __construct()
     {
@@ -200,5 +212,53 @@ class SpontaneousCandidate
     public function __toString()
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getEducationLevel(): ?string
+    {
+        return $this->educationLevel;
+    }
+
+    public function setEducationLevel(string $educationLevel): static
+    {
+        $this->educationLevel = $educationLevel;
+
+        return $this;
+    }
+
+    public function getExperience(): ?string
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(string $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getFonction(): ?string
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(string $fonction): static
+    {
+        $this->fonction = $fonction;
+
+        return $this;
     }
 }
