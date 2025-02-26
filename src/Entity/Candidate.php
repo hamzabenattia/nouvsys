@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -53,6 +55,12 @@ class Candidate
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    /**
+     * @var Collection<int, Interview>
+     */
+    #[ORM\OneToMany(targetEntity: Interview::class, mappedBy: 'candidate')]
+    private Collection $interviews;
+
 
 
     public function __construct()
@@ -60,6 +68,7 @@ class Candidate
         $this->createdAt = new \DateTimeImmutable();
         $this->type = self::TYPE_OFFER;
         $this->status = self::STATUS_PENDING;
+        $this->interviews = new ArrayCollection();
     }
 
 
@@ -191,6 +200,36 @@ class Candidate
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interview>
+     */
+    public function getInterviews(): Collection
+    {
+        return $this->interviews;
+    }
+
+    public function addInterview(Interview $interview): static
+    {
+        if (!$this->interviews->contains($interview)) {
+            $this->interviews->add($interview);
+            $interview->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterview(Interview $interview): static
+    {
+        if ($this->interviews->removeElement($interview)) {
+            // set the owning side to null (unless already changed)
+            if ($interview->getCandidate() === $this) {
+                $interview->setCandidate(null);
+            }
+        }
 
         return $this;
     }

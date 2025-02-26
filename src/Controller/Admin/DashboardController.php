@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Candidate;
+use App\Entity\Interview;
 use App\Entity\Offres;
 use App\Entity\SpontaneousCandidate;
 use App\Entity\User;
@@ -57,12 +58,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Accueill', 'fa fa-home', 'app_home');
 
         yield MenuItem::linkToCrud('Offres', 'fa-solid fa-clipboard-list', Offres::class)->setPermission('ROLE_ADMIN');
-        yield MenuItem::subMenu('Candidate', 'fa-solid fa-users')->setSubItems([
-            MenuItem::linkToCrud('Candidate Spontanée', 'fa-solid fa-id-badge', SpontaneousCandidate::class),
+        yield MenuItem::subMenu('Candidatures', 'fa-solid fa-users')->setSubItems([
             MenuItem::linkToCrud('Réponse à une offre', 'fa fa-file-text', Candidate::class),
-            MenuItem::linkToCrud('Liste des candidats', 'fa-solid fa-users', User::class),
+            MenuItem::linkToCrud('Candidatures Spontanée', 'fa-solid fa-id-badge', SpontaneousCandidate::class),
+        ])->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Liste des candidats', 'fa-solid fa-users', User::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Entretient', 'fa-solid fa-clipboard-list', Interview::class)->setPermission('ROLE_ADMIN');
 
-        ])->setPermission('ROLE_ADMIN');;
 
         
         yield MenuItem::section('Autres');

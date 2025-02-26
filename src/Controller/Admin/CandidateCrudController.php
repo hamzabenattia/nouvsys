@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Candidate;
+use App\Repository\CandidateRepository;
 use App\Service\EmailSender;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -10,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -48,7 +50,15 @@ class CandidateCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
             ->add(Crud::PAGE_INDEX, $viewCV)
-            ->add(Crud::PAGE_DETAIL, $viewCV);
+            ->add(Crud::PAGE_DETAIL, $viewCV)
+            ->addBatchAction(Action::new('reject', 'Refuser')
+        ->linkToCrudAction('rejectCandidate')
+        ->addCssClass('btn btn-danger')
+        ->setIcon('fa fa-ban'))
+        ->addBatchAction(Action::new('approve', 'Accepter')
+        ->linkToCrudAction('approveCandidate')
+        ->addCssClass('btn btn-primary')
+        ->setIcon('fa fa-check'));
     }
 
 
@@ -124,8 +134,54 @@ class CandidateCrudController extends AbstractCrudController
     }
     
 
+    public function approveCandidate(BatchActionDto $batchActionDto, CandidateRepository $candidateRepository , EntityManagerInterface $entityManager)
+    {
+        foreach ($batchActionDto->getEntityIds() as $id) {
+            $candidate = $candidateRepository->find($id);
+            $candidate->setStatus(status: Candidate::STATUS_ACCEPTED);
+    
+            $this->emailSender->sendEmail(
+                'noreply@nouvsys.fr',
+                $candidate->getUser()->getEmail(),  
+                'Votre candidature au poste de '.$candidate->getOffre()->getTitle(). ' Deuxième phase de sélection',
+                'emails/candidat_accept.html.twig',
+                [
+                    'candidate' => $candidate,
+                    'offres' => $candidate->getOffre(),
+                ],
+                );
+        }
+    
+        $entityManager->flush();
+    
+        return $this->redirect($batchActionDto->getReferrerUrl());
+    }
 
 
+
+
+    public function rejectCandidate(BatchActionDto $batchActionDto, CandidateRepository $candidateRepository , EntityManagerInterface $entityManager)
+    {
+        foreach ($batchActionDto->getEntityIds() as $id) {
+            $candidate = $candidateRepository->find($id);
+            $candidate->setStatus(status: Candidate::STATUS_REFUSED);
+    
+            $this->emailSender->sendEmail(
+                'noreply@nouvsys.fr',
+                $candidate->getUser()->getEmail(),  
+                'Suite à votre candidature au poste de '. $candidate->getOffre()->getTitle().' chez Nouvsys',
+                'emails/candidat_refuse.html.twig',
+                [
+                    'candidate' => $candidate,
+                    'offres' => $candidate->getOffre(),
+                ],
+                ); 
+        }
+    
+        $entityManager->flush();
+    
+        return $this->redirect($batchActionDto->getReferrerUrl());
+    }
 }
 
 

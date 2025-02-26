@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
@@ -64,7 +65,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstName')->setLabel('Prénom'),
             TextField::new('lastName')->setLabel('Nom'),
             TextField::new('email')->setLabel('Email'),
-            TextField::new('phoneNumber')->setLabel('Téléphone'),
+            TelephoneField::new('phoneNumber')->setLabel('Téléphone'),
             AssociationField::new('candidates')->setLabel('Nb de candidatures'),
             DateField::new('createdAt')->setLabel('Date de création'),
         ];
@@ -75,7 +76,7 @@ class UserCrudController extends AbstractCrudController
         return $filters
             ->add(DateTimeFilter::new('createdAt', 'Date de création'))
             ->add(TextFilter::new('email', 'Email'))
-            ->add('phoneNumber','Téléphone')
+            ->add( TextFilter::new('phoneNumber','Téléphone'))
         ;
         }
 
