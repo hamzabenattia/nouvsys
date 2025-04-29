@@ -8,6 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: InterviewRepository::class)]
 class Interview
 {
+
+    const STATUS_PENDING = 'En attente';
+    const STATUS_ACCEPTED = 'Accepté';
+    const STATUS_REFUSED = 'Refusé';
+    const STATUS_CANCELLED = 'Annulé';
+    const STATUS_COMPLETED = 'Terminé';
+    const STATUS_NO_SHOW = 'Non présenté';
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,9 +30,9 @@ class Interview
     private ?\DateTimeImmutable $interviewDate = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?string $status = self::STATUS_PENDING;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]    
     private ?string $notes = null;
 
     #[ORM\Column(length: 255)]

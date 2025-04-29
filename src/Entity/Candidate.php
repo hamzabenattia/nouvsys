@@ -53,7 +53,7 @@ class Candidate
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?string $status = self::STATUS_PENDING;
 
     /**
      * @var Collection<int, Interview>
@@ -67,7 +67,6 @@ class Candidate
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->type = self::TYPE_OFFER;
-        $this->status = self::STATUS_PENDING;
         $this->interviews = new ArrayCollection();
     }
 

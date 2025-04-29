@@ -39,6 +39,7 @@ class AddAdminCommand extends Command
         $user->setFirstName("Admin");
         $user->setLastName("Admin");
         $user->setEmail("admin@nouvsys.fr");
+        $user->isVerified(true);
         $user->setRoles([User::ROLE_ADMIN]);
         $user->setPhoneNumber("12345678");
         $plainPassword = "12345678";
