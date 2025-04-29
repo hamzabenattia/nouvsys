@@ -176,7 +176,7 @@ class Candidate
 
     public function __toString()
     {
-        return $this->user->getFirstName() . ' ' . $this->user->getLastName();
+        return  $this->id.': '. $this->user->getFirstName() . ' ' . $this->user->getLastName();
     }
 
     public function getUser(): ?User

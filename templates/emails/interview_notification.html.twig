@@ -6,31 +6,34 @@
         <table style="width: 100%;">
           <tr>
             <td>
-              <h1 style="font-weight: 200; font-size: 16px; margin: 20px 0 30px 0; color: #333333;">Bonjour {{ candidate.user.firstname }}</h1>
+              <h1 style="font-weight: 200; font-size: 16px; margin: 20px 0 30px 0; color: #333333;">Bonjour {{ candidate.user.firstname }},</h1>
 
               <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">
-                Nous tenons tout d'abord à vous remercier pour l'intérêt que vous avez porté à Nouvsys et pour votre candidature pour l'offre : 
-                <a href="{{url('app_offres_show',{id:offres.id})}}"> {{offres.title}}</a>.
+                Nous avons le plaisir de vous confirmer votre entretien pour le poste <strong>{{candidate.offre.title}}</strong> chez Nouvsys.
               </h2>
 
               <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">
-                Après avoir étudié attentivement votre candidature, nous sommes heureux de vous informer que vous avez été sélectionné(e) pour passer à la deuxième phase de notre processus de recrutement : un entretien avec notre équipe.
+🗓️ <strong>Date :</strong> {{ interview|date('d/m/Y') }}<br>
+🕒 <strong>Heure :</strong> {{ interview|date('H\h i') }} <br>
+                📍 <strong>Lieu :</strong> En ligne via Google Meet
               </h2>
 
               <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">
-                Vous recevrez prochainement un email contenant le lien pour accéder à votre entretien. Nous vous invitons à vérifier régulièrement votre boîte de réception.
+                Vous pouvez rejoindre l'entretien en cliquant sur le lien suivant :
+                <br/>
+                <a href="{{ meetLink }}" style="color: #1a73e8;">{{ meetLink }}</a>
               </h2>
 
               <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">
-                Nous sommes impatients de vous rencontrer et d'en savoir plus sur vos compétences et votre expérience.
+                Merci de vous connecter quelques minutes avant l'heure prévue, dans un endroit calme et avec une bonne connexion Internet.
               </h2>
 
               <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">
-                Dans l'attente de votre entretien, nous vous souhaitons une excellente journée.
+                Si vous avez un empêchement ou une question, n'hésitez pas à nous contacter par retour d'email.
               </h2>
 
-              <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">Cordialement,</h2>
-              <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">L'équipe de Nouvsys</h2>
+              <h2 style="font-weight: 200; font-size: 16px; margin: 20px 0; color: #333333;">À très bientôt,</h2>
+              <h2 style="font-weight: 200; font-size: 16px; margin: 0 0 20px 0; color: #333333;">L'équipe de Nouvsys</h2>
 
               <p style="text-align: center; display: block; padding-top:20px; font-weight: bold; margin-top:30px; color: #666666; border-top:1px solid #dddddd;">
                 <a href="{{url('app_home')}}">Nouvsys</a>
