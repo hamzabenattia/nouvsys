@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Candidate;
+use App\Entity\Category;
 use App\Entity\Interview;
 use App\Entity\Offres;
 use App\Entity\SpontaneousCandidate;
@@ -64,6 +65,9 @@ class DashboardController extends AbstractDashboardController
         ])->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Liste des candidats', 'fa-solid fa-users', User::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Entretient', 'fa-solid fa-clipboard-list', Interview::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::section('Parametres');
+        yield MenuItem::linkToCrud('Categories', 'fa-solid fa-tags', Category::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Locations', 'fa-solid fa-map-marker-alt', 'App\Entity\Location')->setPermission('ROLE_ADMIN');
 
 
         

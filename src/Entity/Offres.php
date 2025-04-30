@@ -19,11 +19,13 @@ class Offres
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\JoinColumn(nullable: false)] // or false if category is required
+    private ?Category $category = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $location = null;
+    #[ORM\ManyToOne(targetEntity: Location::class)]
+    #[ORM\JoinColumn(nullable: false)] // or false if category is required
+    private ?Location $location = null;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -68,24 +70,23 @@ class Offres
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
+    public function getCategory(): ?Category
+{
+    return $this->category;
+}
 
-    public function setCategory(string $category): static
-    {
-        $this->category = $category;
+public function setCategory(?Category $category): static
+{
+    $this->category = $category;
+    return $this;
+}
 
-        return $this;
-    }
-
-    public function getLocation(): ?string
+    public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    public function setLocation(string $location): static
+    public function setLocation(?Location $location): static
     {
         $this->location = $location;
 

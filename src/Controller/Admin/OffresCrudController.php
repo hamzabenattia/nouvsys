@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Offres;
 use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -19,7 +20,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 #[IsGranted('ROLE_ADMIN')]
 
@@ -36,14 +40,15 @@ class OffresCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('title')->setLabel('Titre'),
-            ChoiceField::new('category')->setChoices([
-                'Développement' => 'Développement',
-                'Design' => 'Design',
-                'Test' => 'Test',
-                'Support' => 'Support',
-                'Autre' => 'Autre',
-            ])->setLabel('Catégorie'),
-            ChoiceField::new('type')->setChoices([
+            AssociationField::new('category')
+                ->setLabel('Catégorie')
+                    ->setHelp('Si la catégorie n\'existe pas, <a href="' .
+                    $this->generateUrl('admin', [
+                        'crudAction' => 'new',
+                        'crudControllerFqcn' => CategoryCrudController::class,
+                    ]) . '" target="_blank">cliquez ici pour en ajouter une nouvelle</a>. <br>Après l\'ajout, rafraîchissez cette page pour la sélectionner.'),
+  
+             ChoiceField::new('type')->setChoices([
                'Temps plein' => 'Temps plein',
                 'Temps partiel' => 'Temps partiel',
                 'CDD' => 'CDD',
@@ -53,23 +58,19 @@ class OffresCrudController extends AbstractCrudController
                 'Alternance' => 'Alternance',
                 'Autre' => 'Autre'
             ])->setLabel('Type de contrat'),
-            ChoiceField::new('location')->setChoices([
-                'Paris' => 'Paris',
-                'Lyon' => 'Lyon',
-                'Marseille' => 'Marseille',
-                'Bordeaux' => 'Bordeaux',
-                'Lille' => 'Lille',
-                'Toulouse' => 'Toulouse',
-                'Nantes' => 'Nantes',
-                'Strasbourg' => 'Strasbourg',
-                'Montpellier' => 'Montpellier',
-                'Rennes' => 'Rennes',
-                'Autre' => 'Autre',
-            ])->setLabel('Lieu de travail'),
+            AssociationField::new('location')
+                ->setHelp('Si le lieu de travail n\'existe pas, <a href="' .
+                $this->generateUrl('admin', [
+                    'crudAction' => 'new',
+                    'crudControllerFqcn' => LocationCrudController::class,
+                ]) . '" target="_blank">cliquez ici pour en ajouter une nouvelle</a>. <br>Après l\'ajout, rafraîchissez cette page pour la sélectionner.')
+                ->setLabel('Lieu de travail'),
             TextEditorField::new('description'),
             DateField::new('createdAt')->setLabel('Date de création')->hideOnForm(),
             AssociationField::new('candidates')->hideOnForm()->setLabel('N° Candidats'),
             BooleanField::new('isPublished', 'Publié'),
+            
+
   
 
 
@@ -82,13 +83,8 @@ class OffresCrudController extends AbstractCrudController
     {
         return $filters
             ->add('title')
-            ->add(ChoiceFilter::new('category')->setChoices([
-                'Développement' => 'Développement',
-                'Design' => 'Design',
-                'Test' => 'Test',
-                'Support' => 'Support',
-                'Autre' => 'Autre',
-            ]))
+            ->add(EntityFilter::new('category', 'Catégorie'))
+
             ->add(ChoiceFilter::new('type')->setChoices([
                 'Temps plein' => 'Temps plein',
                 'Temps partiel' => 'Temps partiel',
@@ -99,19 +95,8 @@ class OffresCrudController extends AbstractCrudController
                 'Alternance' => 'Alternance',
                 'Autre' => 'Autre'
             ]))
-            ->add(ChoiceFilter::new('location')->setChoices([
-                'Paris' => 'Paris',
-                'Lyon' => 'Lyon',
-                'Marseille' => 'Marseille',
-                'Bordeaux' => 'Bordeaux',
-                'Lille' => 'Lille',
-                'Toulouse' => 'Toulouse',
-                'Nantes' => 'Nantes',
-                'Strasbourg' => 'Strasbourg',
-                'Montpellier' => 'Montpellier',
-                'Rennes' => 'Rennes',
-                'Autre' => 'Autre',
-            ]))
+            ->add(EntityFilter::new('location', 'Lieu de travail'))
+
 
             ->add(DateTimeFilter::new('createdAt', 'Date de postulation'))
         
